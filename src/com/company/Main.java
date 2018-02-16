@@ -1,9 +1,7 @@
 package com.company;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -60,7 +58,99 @@ public class Main {
 
         }
 
+
+        //Последовательно сшить 5 файлов в один (файлы также ~100 байт).
+        FileOutputStream FO = null;
+        OutputStream out = null;
+
+        StringBuilder Sb= new StringBuilder();
+        try {
+            // Files.readAllBytes(Paths.get("1.txt"));
+
+            out = new BufferedOutputStream(new FileOutputStream("6.txt"));
+            BufferedInputStream in1 = new BufferedInputStream(new FileInputStream("1.txt"));
+            byte[] b= null;
+            while (in1.read() != -1)
+            {
+              // НЕ ПОНЯТНО КАК СЧИТАТЬ СТРОКОВЫЙ ФАЙЛ BufferedInputStream'ОМ?
+            };
+            out.close();
+            in1.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+        }
+
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        try {
+
+
+            BufferedReader br = new BufferedReader(new FileReader("1.txt"));
+
+             while ((line = br.readLine())!=null)
+             sb.append(line);
+
+             ArrayList<BufferedReader> al = new  ArrayList();
+            al.add(new BufferedReader(new FileReader("2.txt")));
+            al.add(new BufferedReader(new FileReader("3.txt")));
+
+            for (BufferedReader bb:al
+                 )
+            {
+                while ((line = bb.readLine())!=null)
+                sb.append(line);
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("--------------- ");
+        System.out.println(sb.toString());
+
+
+        // Записать в файл
+
+        try (FileWriter writer = new FileWriter("6.txt",true);) {
+        writer.write(sb.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        /*SequenceInputStream Sq = null;
+        ArrayList<DataInputStream> dI = new ArrayList<>();
+        ArrayList<FileInputStream> al = new ArrayList<>();
+
+        try
+
+        {
+            DataOutputStream out = new DataOutputStream( new
+                    FileOutputStream("6.txt"));
+
+        for (int i = 1; i<6; i++)
+        {
+            al.add(new FileInputStream(i+".txt"));
+        }
+
+            Iterator<FileInputStream> Iterf = al.iterator();
+            while (Iterf.hasNext())
+            {
+                FO.write(Iterf.next());
+            }
+
+
+        } catch (IOException e)
+        {System.out.println("Текст ошибки: ");
+            e.printStackTrace();
+        }
+*/
+
     }
+
+
 }
 
 
