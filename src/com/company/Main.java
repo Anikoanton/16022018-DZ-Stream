@@ -5,7 +5,15 @@ import java.util.ArrayList;
 
 public class Main {
 
+  public static final int countLetter=10;
+
     public static void main(String[] args) {
+
+        try {
+            readPaper("1.txt", 2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // write your code here
 
         byte[] arr = {80, 25 ,100};
@@ -120,33 +128,31 @@ public class Main {
         }
 
 
-        /*SequenceInputStream Sq = null;
-        ArrayList<DataInputStream> dI = new ArrayList<>();
-        ArrayList<FileInputStream> al = new ArrayList<>();
 
-        try
 
+    }
+    private static String readPaper (String fname, int numb) throws Exception
+    {
+        String paper=null;
+        RandomAccessFile raf = new RandomAccessFile(fname, "r");
+        int seakNum = (countLetter * numb);
+        raf.seek(seakNum);
+        long point=0;
+        String t = " ";
+        int i;
+        int b = raf.read();
+        System.out.println("---- Чтение страницы № " + numb + ": ------- ");
+        while ((b!=-1) && (point<((countLetter * numb)+countLetter)))
         {
-            DataOutputStream out = new DataOutputStream( new
-                    FileOutputStream("6.txt"));
-
-        for (int i = 1; i<6; i++)
-        {
-            al.add(new FileInputStream(i+".txt"));
+            t = t + (char)b;
+            b = raf.read();
+            point = raf.getFilePointer();
         }
-
-            Iterator<FileInputStream> Iterf = al.iterator();
-            while (Iterf.hasNext())
-            {
-                FO.write(Iterf.next());
-            }
+        System.out.println(t);
+        System.out.println("--------------------------------------------------");
 
 
-        } catch (IOException e)
-        {System.out.println("Текст ошибки: ");
-            e.printStackTrace();
-        }
-*/
+        return t;
 
     }
 
